@@ -15,6 +15,11 @@ npm run serve
 npm run build
 ```
 
+### Running SSR in local development environment
+```
+npm run start
+```
+
 ### Lints and fixes files
 ```
 npm run lint
