@@ -1,4 +1,4 @@
-# ssr-test
+# vue2-ssr-template
 
 ## Project setup
 ```

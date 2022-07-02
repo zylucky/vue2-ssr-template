@@ -1,22 +1,21 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
-/* 解决重复点击路由报错问题：NavigationDuplicated: Avoided redundant navigation to current location: "/xxx" 开始 */
+/* 解决访问重复路由报错问题：NavigationDuplicated: Avoided redundant navigation to current location: "/xxx" 开始 */
 const originalPush = VueRouter.prototype.push
 // 修改 原型对象中的push方法
 VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
-/* 解决重复点击路由报错问题：NavigationDuplicated: Avoided redundant navigation to current location: "/xxx" 结束 */
+/* 解决访问重复路由报错问题：NavigationDuplicated: Avoided redundant navigation to current location: "/xxx" 结束 */
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('../views/Home.vue')
+    component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue')
   },
   {
     path: '/about',
@@ -27,13 +26,10 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   }
 ]
-
-const router = new VueRouter({
-  routes
-})
-
-// export default router
-
+//每次用户请求都需要创建一个新的 router 实例
+//创建 createRouter 工厂函数
 export function createRouter() {
-  return router
+  return new VueRouter({
+    routes
+  })
 }
